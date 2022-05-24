@@ -1,0 +1,6 @@
+<key>NSPhotoLibraryUsageDescription</key>
+<string>App needs access to photo lib for profile images</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Used to capture audio for image picker plugin</string>
+<key>NSCameraUsageDescription</key>
+<string>To capture profile photo please grant camera access</string>
