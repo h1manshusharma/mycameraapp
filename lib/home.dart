@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                       "Pick from gallery",
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
-                    onTap: openCamera,
+                    onTap: openGallery,
                   ),
                 ],
               ),
