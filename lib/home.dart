@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,23 +12,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ImagePicker picker = ImagePicker();
-
+  final ImagePicker _picker = ImagePicker();
   File? _image;
 
   Future openCamera() async {
-    var image = await picker.pickImage(source: ImageSource.camera);
+    var image = await _picker.pickImage(source: ImageSource.camera);
 
     setState(() {
-      _image = image as File;
+      _image = File(image!.path);
     });
   }
 
   Future openGallery() async {
-    var picture = await picker.pickImage(source: ImageSource.camera);
+    var picture = await _picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = picture as File;
+      _image = File(picture!.path);
     });
   }
 
@@ -37,26 +37,26 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Colors.blue,
-            shape: StadiumBorder(),
+            shape: const RoundedRectangleBorder(),
             content: SingleChildScrollView(
               child: ListBody(
                 children: [
                   GestureDetector(
-                    child: Text(
+                    onTap: openCamera,
+                    child: const Text(
                       "Take Picture",
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
-                    onTap: openCamera,
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(10.0),
                   ),
                   GestureDetector(
-                    child: Text(
+                    onTap: openGallery,
+                    child: const Text(
                       "Pick from gallery",
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
-                    onTap: openGallery,
                   ),
                 ],
               ),
@@ -69,15 +69,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Camera App"),
+        title: const Text("My Camera App"),
       ),
       body: Center(
-        child: _image == null ? const Text('No Image') : Image.file(_image!),
+        child: _image == null
+            ? const Text('No Image')
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.file(_image!),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _optionsDialogBox,
-        child: Icon(Icons.add_a_photo),
         tooltip: 'Open Camera',
+        child: const Icon(Icons.camera_alt_outlined),
       ),
     );
   }
