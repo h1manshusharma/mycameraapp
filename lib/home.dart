@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     child: Text(
-                      "Take Picture",
+                      "Pick from gallery",
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
                     onTap: openCamera,
